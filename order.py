@@ -8,4 +8,4 @@ def calculate_total(items: list[float]) -> float:
     Returns:
         A soma de todos os valores da lista.
     """
-    return 0
+    return sum(items)
