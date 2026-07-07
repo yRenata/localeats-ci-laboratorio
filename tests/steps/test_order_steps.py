@@ -1,14 +1,47 @@
 from pytest_bdd import given, when, then
-from order import calculate_total
+from order import calculate_total, apply_discount
 
-@given('que o pedido possui os itens 10, 20, 30', target_fixture="pedido_itens")
-def pedido_itens():
+
+@given("que o pedido possui os itens 10, 20 e 30")
+def order_items():
     return [10, 20, 30]
 
+
 @when("o sistema calcula o valor total", target_fixture="total")
-def calculate(pedido_itens):
-    return calculate_total(pedido_itens)
+def calculate(order_items):
+    return calculate_total(order_items)
+
 
 @then("o resultado deve ser 60")
 def check_total(total):
     assert total == 60
+
+
+@given("que o pedido possui apenas o item 45")
+def single_order_item():
+    return [45]
+
+
+@when("o sistema calcula o valor total de um pedido com um item", target_fixture="single_total")
+def calculate_single(single_order_item):
+    return calculate_total(single_order_item)
+
+
+@then("o resultado deve ser 45")
+def check_single_total(single_total):
+    assert single_total == 45
+
+
+@given("que o valor total do pedido é 100", target_fixture="discount_total")
+def discount_total():
+    return 100
+
+
+@when("o sistema aplica um desconto de 10 por cento", target_fixture="discounted_value")
+def apply_discount_step(discount_total):
+    return apply_discount(discount_total, 10)
+
+
+@then("o valor final deve ser 90")
+def check_discount(discounted_value):
+    assert discounted_value == 90
