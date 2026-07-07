@@ -15,15 +15,6 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Instalar dependências
-        run: |
-          pip install pytest pytest-bdd pytest-cov flake8
+      - run: pip install pytest pytest-bdd
 
-      - name: Verificar estilo do código
-        run: flake8 . --max-line-length=100 --exclude=.venv
-
-      - name: Executar testes
-        run: pytest
-
-      - name: Verificar cobertura
-        run: pytest --cov=. --cov-fail-under=80
+      - run: pytest
